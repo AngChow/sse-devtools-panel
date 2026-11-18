@@ -28,6 +28,7 @@ import {
   setThemePreference,
   type ThemePreference,
 } from "../shared/theme";
+import { initTimingStall, onTimingStallChange } from "../shared/timing-stall";
 import { stampReceivedAt } from "../shared/event-stamp";
 import { hasTerminalEvent, latestEventIdFromEvents } from "../shared/stream-close";
 import { SseParser, type ParsedSseEvent } from "../shared/sse-parser";
@@ -810,10 +811,22 @@ function setupActions(): void {
   // Prefer pointerdown: XHR streaming may rewrite row contents between mousedown/mouseup.
   elList.addEventListener("pointerdown", (e) => {
     if (e.button !== 0) return;
-    const li = (e.target as HTMLElement | null)?.closest("li.stream, li.stream-item");
+    const target = e.target as HTMLElement | null;
+    const li = target?.closest("li.stream, li.stream-item");
     if (!(li instanceof HTMLLIElement) || !elList.contains(li)) return;
     const id = li.dataset.id;
-    if (!id || !state.streams.has(id) || id === state.selectedId) return;
+    if (!id || !state.streams.has(id)) return;
+    if (target?.closest(".stream-anomalies")) {
+      if (id !== state.selectedId) {
+        state.selectedId = id;
+        state.selectedEventIndex = null;
+        renderList();
+        renderDetail();
+      }
+      showAnomaliesDialog(dialogHooks, id);
+      return;
+    }
+    if (id === state.selectedId) return;
     state.selectedId = id;
     state.selectedEventIndex = null;
     renderList();
@@ -1160,7 +1173,7 @@ function refreshLocaleUi(): void {
   applyDomI18n();
   setUiPaused(state.uiPaused, pauseHooks);
   if (elStatusbarLocale) {
-    const version = chrome.runtime.getManifest?.().version ?? "1.3.0";
+    const version = chrome.runtime.getManifest?.().version ?? "1.4.0";
     elStatusbarLocale.textContent =
       getActiveLocale() === "zh_CN" ? `中文 · ${version}` : `EN · ${version}`;
   }
@@ -1175,6 +1188,7 @@ function refreshLocaleUi(): void {
 }
 
 void initI18n().then(async () => {
+  await initTimingStall();
   refreshLocaleUi();
   await initTheme();
   refreshThemeUi();
@@ -1184,6 +1198,10 @@ void initI18n().then(async () => {
   connect();
   onLocaleChange(() => {
     refreshLocaleUi();
+  });
+  onTimingStallChange(() => {
+    renderDetail();
+    scheduleRenderList();
   });
   // Defer one frame so layout has settled before measuring tour targets.
   requestAnimationFrame(() => {

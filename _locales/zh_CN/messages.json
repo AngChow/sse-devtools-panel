@@ -53,12 +53,6 @@
   "noStreamsMatchFilter": {
     "message": "当前过滤条件下没有匹配的数据流"
   },
-  "emptyWaitingBefore": {
-    "message": "等待"
-  },
-  "emptyWaitingAfter": {
-    "message": "…"
-  },
   "emptyHintGuide": {
     "message": "在本标签页发起 SSE/NDJSON 请求，或导入 JSON 捕获文件。"
   },
@@ -118,6 +112,36 @@
   },
   "conversationProfileLabel": {
     "message": "协议"
+  },
+  "conversationProfileOverride": {
+    "message": "协议:"
+  },
+  "conversationProfileOverrideTitle": {
+    "message": "按所选协议重新合并整条流。自动会重新识别。"
+  },
+  "conversationProfileAuto": {
+    "message": "自动"
+  },
+  "conversationProfileOpenai": {
+    "message": "OpenAI"
+  },
+  "conversationProfileDeepseek": {
+    "message": "DeepSeek"
+  },
+  "conversationProfileDoubao": {
+    "message": "豆包"
+  },
+  "conversationProfileKimi": {
+    "message": "Kimi"
+  },
+  "conversationProfileQwen": {
+    "message": "千问"
+  },
+  "conversationProfileChatglm": {
+    "message": "智谱"
+  },
+  "conversationProfileYuanbao": {
+    "message": "元宝"
   },
   "conversationVendorLabel": {
     "message": "厂商"
@@ -320,6 +344,15 @@
   "anomaliesTitle": {
     "message": "扫描并查看各数据流中的可疑事件"
   },
+  "streamAnomalyLink": {
+    "message": "$COUNT$ 处异常",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
   "specWarnings": {
     "message": "规范"
   },
@@ -452,6 +485,9 @@
   "anomalyOversizedPacket": {
     "message": "超长包"
   },
+  "anomalyStall": {
+    "message": "卡顿"
+  },
   "anomalyEmptyDataDesc": {
     "message": "data 为空或仅包含空白字符"
   },
@@ -464,6 +500,15 @@
       "id": {
         "content": "$1",
         "example": "evt-1"
+      }
+    }
+  },
+  "anomalyStallDesc": {
+    "message": "这条事件之前等待了 $GAP$",
+    "placeholders": {
+      "gap": {
+        "content": "$1",
+        "example": "2.1 s"
       }
     }
   },
@@ -1171,8 +1216,8 @@
   "moreMenuTitle": {
     "message": "更多分析操作"
   },
-  "sidebarFooter": {
-    "message": "捕获 Fetch · EventSource · XHR · NDJSON"
+  "sidebarSwGap": {
+    "message": "页面 Service Worker 里发起的请求抓不到。"
   },
   "sidebarResizeTitle": {
     "message": "拖动调整侧边栏宽度"
@@ -1300,6 +1345,15 @@
   },
   "optionsLanguageHint": {
     "message": "用于面板界面文案。已打开的 SSE DevTools 面板会立即生效。"
+  },
+  "timingStallLabel": {
+    "message": "卡顿"
+  },
+  "timingStallUnit": {
+    "message": "毫秒"
+  },
+  "timingStallHint": {
+    "message": "达到该间隔即视为卡顿。默认 400。"
   },
   "shortcutsMenu": {
     "message": "快捷键"

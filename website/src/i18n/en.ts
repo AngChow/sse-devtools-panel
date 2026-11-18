@@ -71,7 +71,7 @@ export const en: UI = {
         num: "02",
         title: "See stream timing",
         description:
-          "Timing shows arrival density, wait-ms, phase bands, stall pins, and rows by event type—clearer than Network total duration alone.",
+          "Arrival density, wait-ms, phase bands, and stall pins, with rows by event type. The stall threshold sits on the toolbar—400 ms until you change it.",
         image: "tab-timing.png",
         alt: "Timing tab with arrival density, wait-ms track, and stall pins",
         tags: ["Timing", "TTFT", "Zoom"],
@@ -104,6 +104,22 @@ export const en: UI = {
         image: "deepseek-conversation.gif",
         alt: "DeepSeek page with Conversation merge demo",
         tags: ["Conversation", "DeepSeek", "AI Web"],
+      },
+      {
+        title: "Protocol starts on Auto. Override it anytime",
+        description:
+          "The protocol picker on Conversation detects the format for you; when it guesses wrong, pick another profile and the whole stream is re-merged. Back on Auto, it detects again.",
+        image: "conversation-profile.gif",
+        alt: "Picking a protocol on Conversation and assembling the stream again",
+        tags: ["Conversation", "Profile"],
+      },
+      {
+        title: "Spot the stream that misbehaves",
+        description:
+          "Only streams with problems show “N anomalies” under their time. Click it to list that stream only, then click a row to jump to the event. A wait longer than the stall threshold counts too. More → Anomalies still scans every stream.",
+        image: "stream-anomalies.gif",
+        alt: "Opening one stream’s problems from the sidebar and jumping to the event",
+        tags: ["Anomalies", "Timing"],
       },
       {
         title: "Smooth scrolling on long streams",
@@ -164,6 +180,11 @@ export const en: UI = {
         question: "How is this different from the Network panel?",
         answer:
           "Network shows whole requests; SSE DevTools is stream-native—per-event parsing, conversation merge, timing rhythm, and TTFT for AI chats and NDJSON protocols.",
+      },
+      {
+        question: "Are there keyboard shortcuts?",
+        answer:
+          "Yes—when the panel has focus and the cursor is not in a text field. Press ? for the full list: P pauses or resumes the refresh, 1–5 switch Events, Request, Conversation, Timing, and Raw, / opens Search All, E exports the stream as JSON, ← → step through the event drawer, Esc closes menus. It also lives under More → Shortcuts.",
       },
     ],
   },

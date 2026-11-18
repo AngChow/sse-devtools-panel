@@ -10,6 +10,12 @@ https://github.com/FatMii/sse-devtools-panel/releases
 
 ## [Unreleased]
 
+### Added
+
+- **SSE inside iframes is captured.** Both content scripts now run in every frame (`all_frames`,
+  `match_about_blank`, `match_origin_as_fallback`), and request ids carry a per-frame token so page and
+  iframe ids no longer collide.
+
 ### Fixed
 
 - **Client aborts are no longer reported as errors.** When the page calls `AbortController.abort()` (Chrome's
@@ -18,6 +24,20 @@ https://github.com/FatMii/sse-devtools-panel/releases
   OpenAI `finish_reason`) are downgraded to **done** with a note that the server had already finished.
 - Request tab shows the abort as a readable note (说明) instead of an "Error message" row; archives/imports keep
   the new `closeNote` and `aborted` status.
+
+## [1.4.0] — 2026-11-05
+
+### Added
+
+- **Keyboard shortcuts** when the panel is focused and the cursor is outside a text field: `P` pauses or resumes the UI, `/` opens Search All, `E` exports the selected stream as JSON, `1`–`5` switch Events, Request, Conversation, Timing, and Raw. With the event drawer open, `←` / `→` move between events and `Esc` closes menus. The full list is under **More → Shortcuts**, or press `?`
+- **Stall threshold** on the Timing toolbar (default 400 ms, range 50–10000). Saved in `chrome.storage.sync` and applied immediately
+- Sidebar note that requests started inside a page Service Worker are not captured
+- Anomaly scan includes waits at or above the current stall threshold. A stream with hits shows **N anomalies** under its meta and opens that stream only; **More → Anomalies** still scans every stream
+- Conversation toolbar **Profile:** re-merges the whole stream with a selected profile. **Auto** detects again. Anthropic stays detection-only
+
+### Changed
+
+- README (en/zh) and the website spotlight cover profile override and the per-stream anomaly link
 
 ## [1.3.0] — 2026-10-12
 
@@ -148,6 +168,7 @@ https://github.com/FatMii/sse-devtools-panel/releases
 
 - Initial public release: Chromium DevTools panel for SSE / EventSource / NDJSON capture, Events, Request, Conversation, Timing, Raw, import/export, and local demo
 
+[1.4.0]: https://github.com/FatMii/sse-devtools-panel/releases/tag/v1.4.0
 [1.3.0]: https://github.com/FatMii/sse-devtools-panel/releases/tag/v1.3.0
 [1.2.6]: https://github.com/FatMii/sse-devtools-panel/releases/tag/v1.2.6
 [1.2.5]: https://github.com/FatMii/sse-devtools-panel/releases/tag/v1.2.5

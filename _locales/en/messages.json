@@ -53,12 +53,6 @@
   "noStreamsMatchFilter": {
     "message": "No streams match current filters"
   },
-  "emptyWaitingBefore": {
-    "message": "Waiting for"
-  },
-  "emptyWaitingAfter": {
-    "message": "…"
-  },
   "emptyHintGuide": {
     "message": "Trigger SSE or NDJSON in this tab, or import a JSON capture."
   },
@@ -118,6 +112,36 @@
   },
   "conversationProfileLabel": {
     "message": "Profile"
+  },
+  "conversationProfileOverride": {
+    "message": "Profile:"
+  },
+  "conversationProfileOverrideTitle": {
+    "message": "Re-merge this stream with the selected profile. Auto detects again."
+  },
+  "conversationProfileAuto": {
+    "message": "Auto"
+  },
+  "conversationProfileOpenai": {
+    "message": "OpenAI"
+  },
+  "conversationProfileDeepseek": {
+    "message": "DeepSeek"
+  },
+  "conversationProfileDoubao": {
+    "message": "Doubao"
+  },
+  "conversationProfileKimi": {
+    "message": "Kimi"
+  },
+  "conversationProfileQwen": {
+    "message": "Qwen"
+  },
+  "conversationProfileChatglm": {
+    "message": "ChatGLM"
+  },
+  "conversationProfileYuanbao": {
+    "message": "Yuanbao"
   },
   "conversationVendorLabel": {
     "message": "Vendor"
@@ -320,6 +344,15 @@
   "anomaliesTitle": {
     "message": "Scan and review suspicious events"
   },
+  "streamAnomalyLink": {
+    "message": "$COUNT$ anomalies",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
   "specWarnings": {
     "message": "Spec"
   },
@@ -452,6 +485,9 @@
   "anomalyOversizedPacket": {
     "message": "Oversized packet"
   },
+  "anomalyStall": {
+    "message": "Stall"
+  },
   "anomalyEmptyDataDesc": {
     "message": "data is empty or whitespace-only"
   },
@@ -464,6 +500,15 @@
       "id": {
         "content": "$1",
         "example": "evt-1"
+      }
+    }
+  },
+  "anomalyStallDesc": {
+    "message": "Waited $GAP$ before this event",
+    "placeholders": {
+      "gap": {
+        "content": "$1",
+        "example": "2.1 s"
       }
     }
   },
@@ -1171,8 +1216,8 @@
   "moreMenuTitle": {
     "message": "More analysis actions"
   },
-  "sidebarFooter": {
-    "message": "Captures Fetch · EventSource · XHR · NDJSON"
+  "sidebarSwGap": {
+    "message": "Requests started inside a page Service Worker are not captured."
   },
   "sidebarResizeTitle": {
     "message": "Drag to resize sidebar"
@@ -1300,6 +1345,15 @@
   },
   "optionsLanguageHint": {
     "message": "Panel UI language. Changes apply immediately in an open SSE DevTools panel."
+  },
+  "timingStallLabel": {
+    "message": "Stall"
+  },
+  "timingStallUnit": {
+    "message": "ms"
+  },
+  "timingStallHint": {
+    "message": "Gaps at or above this count as stalls. Default 400."
   },
   "shortcutsMenu": {
     "message": "Shortcuts"

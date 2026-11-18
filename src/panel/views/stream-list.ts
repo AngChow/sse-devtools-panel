@@ -77,20 +77,14 @@ export function renderList(): void {
     elEmpty.textContent = t("noStreamsMatchFilter");
   } else {
     elEmpty.className = "empty-hint";
-    elEmpty.innerHTML = `
-      <p class="empty-hint-lead">
-        <span>${escapeHtml(t("emptyWaitingBefore"))}</span>
-        <code>text/event-stream</code><span>${escapeHtml(t("emptyWaitingAfter"))}</span>
-      </p>
-      <p class="empty-hint-guide">${escapeHtml(t("emptyHintGuide"))}</p>
-    `;
+    elEmpty.innerHTML = `<p class="empty-hint-guide">${escapeHtml(t("emptyHintGuide"))}</p>`;
   }
 
   const seen = new Set<string>();
   for (const s of items) {
     seen.add(s.requestId);
-    const fingerprint = streamItemFingerprint(s);
     const anomalyCount = scanStreamAnomalies(s).length;
+    const fingerprint = `${streamItemFingerprint(s)}|a${anomalyCount}`;
     const specCount = getStreamSpecWarnings(s).length;
     let li = elList.querySelector<HTMLLIElement>(`li[data-id="${CSS.escape(s.requestId)}"]`);
     if (!li) {
@@ -126,7 +120,6 @@ export function renderList(): void {
               ? `<span class="badge origin">${escapeHtml(originLabel(s.origin) as string)}</span>`
               : ""
           }
-          ${anomalyCount > 0 ? `<span class="badge warn" title="${escapeHtml(t("anomaliesTitle"))}">!${anomalyCount}</span>` : ""}
           ${specCount > 0 ? `<span class="badge spec" title="${escapeHtml(t("specWarningsTitle"))}">S${specCount}</span>` : ""}
           ${
             (s.reconnectCount ?? 0) > 0
@@ -149,6 +142,13 @@ export function renderList(): void {
             ${endHtml}
           </span>
         </div>
+        ${
+          anomalyCount > 0
+            ? `<button type="button" class="stream-anomalies">${escapeHtml(
+                t("streamAnomalyLink", String(anomalyCount)),
+              )}</button>`
+            : ""
+        }
       `;
     }
   }

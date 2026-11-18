@@ -14,6 +14,18 @@ export const releasePulse: {
 } = {
   items: [
     {
+      version: "1.4.0",
+      date: "2026-11-05",
+      title: {
+        zh: "协议可改，卡顿可调，异常直达",
+        en: "Pick the protocol, set the stall, jump straight to anomalies",
+      },
+      blurb: {
+        zh: "对话页的协议可以手动指定，改完这条流立即按新协议重拼；时序页的卡顿阈值（默认 400 毫秒）决定多长的间隔算一次停顿，异常扫描与它同口径；出问题的流在侧栏多一行「N 处异常」，点开只列这一条。快捷键也补齐了：? 看全表，P 暂停刷新，1–5 切换五个标签。",
+        en: "Pick the protocol on Conversation yourself and the stream is re-merged with it; the stall threshold on Timing (400 ms unless you change it) sets what counts as a pause and drives the anomaly scan; and a stream with problems carries an “N anomalies” row that opens just that stream. Shortcuts are in too: ? for the full list, P to pause the refresh, 1–5 for the five tabs.",
+      },
+    },
+    {
       version: "1.3.0",
       date: "2026-10-12",
       title: {
