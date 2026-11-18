@@ -52,9 +52,16 @@
 
 ---
 
+> **Personal fork.** This repo is my fork of [FatMii/sse-devtools-panel](https://github.com/FatMii/sse-devtools-panel).
+> Everything except **two local patches** (iframe stream capture, client-abort status) is upstream code, unchanged.
+> See [Local changes](#local-changes) for the diffs; docs, demo and releases stay at the original repo.
+
+---
+
 # Table of contents
 
 - [Table of contents](#table-of-contents)
+- [Local changes](#local-changes)
 - [Why you need it](#why-you-need-it)
 - [What it is / is not](#what-it-is--is-not)
 - [Features](#features)
@@ -85,6 +92,29 @@
 - [Contributing](#contributing)
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
+
+---
+
+# Local changes
+
+This fork tracks [`FatMii/sse-devtools-panel`](https://github.com/FatMii/sse-devtools-panel) and carries **two patches** on top of upstream `v1.3.0`. Every other file is upstream code, unchanged, under the same MIT license. Neither patch has been sent upstream.
+
+| Patch                        | Commit    | What it changes                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ---------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Capture SSE inside iframes   | `b8e2b66` | Upstream injects only into the top document, so a stream opened inside an `<iframe>` never shows up in the panel. Both content scripts now run with `all_frames` / `match_about_blank` / `match_origin_as_fallback`, and request ids carry a per-frame token (`sse-<ts>-<frameToken>-<seq>`) so the page and its iframes no longer produce colliding ids.                                                                                                                 |
+| Client aborts are not errors | `aa68a49` | `AbortController.abort()` used to show a red error dot and an `错误：…` chip, because Chrome only reports `signal is aborted without reason`. Aborts now have their own amber **aborted** status. When a terminal event already arrived (`[DONE]`, `finish`/`finished`/`completed`, OpenAI `finish_reason`), the stream is downgraded to **done** with a note instead. The record and export shape gain `closeNote`, and archives written before this patch still import. |
+
+Working with the patches:
+
+```bash
+pnpm install      # Node 20+, pnpm 10.x
+pnpm build        # emits dist/ — load that folder unpacked in chrome://extensions
+
+git fetch upstream                  # sync with the original project
+git rebase upstream/main            # keep the two patches on top
+```
+
+`dist/` and `node_modules/` stay out of git. Upstream's docs, demo server and release pipeline are untouched — use the [original repo](https://github.com/FatMii/sse-devtools-panel) for those.
 
 ---
 

@@ -52,9 +52,16 @@
 
 ---
 
+> **个人分支说明。** 本仓库是 [FatMii/sse-devtools-panel](https://github.com/FatMii/sse-devtools-panel) 的个人 fork，
+> 除**两个本地 patch**（iframe 内流式抓取、客户端 abort 状态）外，其余代码与上游一致、未做改动。
+> 具体差异见[本地改动](#本地改动)；文档、demo 与发布仍以原仓库为准。
+
+---
+
 # 目录
 
 - [目录](#目录)
+- [本地改动](#本地改动)
 - [为什么需要它](#为什么需要它)
 - [它是什么 / 不是什么](#它是什么--不是什么)
 - [功能特性](#功能特性)
@@ -85,6 +92,29 @@
 - [参与贡献](#参与贡献)
 - [致谢](#致谢)
 - [开源协议](#开源协议)
+
+---
+
+# 本地改动
+
+本仓库是 [`FatMii/sse-devtools-panel`](https://github.com/FatMii/sse-devtools-panel) 的个人分支，在上游 `v1.3.0` 之上只加了**两个 patch**，其余文件与上游一致（同样 MIT 协议，未改动）。两个 patch 都没有提交给上游。
+
+| 改动                    | 提交      | 说明                                                                                                                                                                                                                                                                                                                                                        |
+| ----------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 抓取 iframe 内的 SSE    | `b8e2b66` | 上游只往顶层文档注入 content script，流式请求放在 `<iframe>` 里时面板里根本看不到。现在两个 content script 都打开 `all_frames` / `match_about_blank` / `match_origin_as_fallback`；请求 id 带上每 frame 的随机 token（`sse-<ts>-<frameToken>-<seq>`），主页面与各 iframe 的 id 不再撞车。                                                                   |
+| 客户端 abort 不再算错误 | `aa68a49` | 页面调用 `AbortController.abort()` 时，原本会显示红点和 `错误：…` 标签（Chrome 的消息只有 `signal is aborted without reason`）。现在 abort 有自己的琥珀色 **aborted** 状态；若终端事件（`[DONE]`、`finish`/`finished`/`completed`、OpenAI `finish_reason`）已经到达，则降级为 **done** 并附说明。记录与导出结构新增 `closeNote`，改动前导出的归档仍可导入。 |
+
+日常开发与同步上游：
+
+```bash
+pnpm install      # Node 20+、pnpm 10.x
+pnpm build        # 产出 dist/，在 chrome://extensions 里加载该目录
+
+git fetch upstream                  # 与上游同步
+git rebase upstream/main            # 把两个 patch 保持在最上面
+```
+
+`dist/` 与 `node_modules/` 不入库；上游的文档、demo 服务与发布流水线保持原样，需要时见[原仓库](https://github.com/FatMii/sse-devtools-panel)。
 
 ---
 
