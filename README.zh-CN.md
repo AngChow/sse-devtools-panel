@@ -97,7 +97,9 @@
 
 # 本地改动
 
-本仓库是 [`FatMii/sse-devtools-panel`](https://github.com/FatMii/sse-devtools-panel) 的个人分支，在上游 `v1.3.0` 之上只加了**两个 patch**，其余文件与上游一致（同样 MIT 协议，未改动）。两个 patch 都没有提交给上游。
+本仓库是 [`FatMii/sse-devtools-panel`](https://github.com/FatMii/sse-devtools-panel) 的个人分支，在上游 `v1.4.0` 之上只加了**两个 patch**，其余文件与上游一致（同样 MIT 协议，未改动）。两个 patch 都没有提交给上游。
+
+当前基线是上游 `v1.4.0`（2026-11-05），键盘快捷键、Timing 的 Stall 阈值、异常扫描、Conversation 的 Profile 覆盖以及 Service Worker 提示都已包含在内。
 
 | 改动                    | 提交      | 说明                                                                                                                                                                                                                                                                                                                                                        |
 | ----------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -111,7 +113,7 @@ pnpm install      # Node 20+、pnpm 10.x
 pnpm build        # 产出 dist/，在 chrome://extensions 里加载该目录
 
 git fetch upstream                  # 与上游同步
-git rebase upstream/main            # 把两个 patch 保持在最上面
+git merge upstream/main             # 合入上游更新，两个 patch 保持在最上面
 ```
 
 `dist/` 与 `node_modules/` 不入库；上游的文档、demo 服务与发布流水线保持原样，需要时见[原仓库](https://github.com/FatMii/sse-devtools-panel)。

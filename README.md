@@ -97,7 +97,9 @@
 
 # Local changes
 
-This fork tracks [`FatMii/sse-devtools-panel`](https://github.com/FatMii/sse-devtools-panel) and carries **two patches** on top of upstream `v1.3.0`. Every other file is upstream code, unchanged, under the same MIT license. Neither patch has been sent upstream.
+This fork tracks [`FatMii/sse-devtools-panel`](https://github.com/FatMii/sse-devtools-panel) and carries **two patches** on top of upstream `v1.4.0`. Every other file is upstream code, unchanged, under the same MIT license. Neither patch has been sent upstream.
+
+Current base is upstream `v1.4.0` (2026-11-05), so keyboard shortcuts, the Timing stall threshold, anomaly scans, the conversation profile override and the Service Worker note are all included.
 
 | Patch                        | Commit    | What it changes                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | ---------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -111,7 +113,7 @@ pnpm install      # Node 20+, pnpm 10.x
 pnpm build        # emits dist/ — load that folder unpacked in chrome://extensions
 
 git fetch upstream                  # sync with the original project
-git rebase upstream/main            # keep the two patches on top
+git merge upstream/main             # pull in upstream changes; the patches stay on top
 ```
 
 `dist/` and `node_modules/` stay out of git. Upstream's docs, demo server and release pipeline are untouched — use the [original repo](https://github.com/FatMii/sse-devtools-panel) for those.
