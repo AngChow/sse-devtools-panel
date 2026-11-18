@@ -26,7 +26,10 @@ if (!window[STATE_KEY]) {
 
 function install(): void {
   let seq = 0;
-  const nextId = () => `sse-${Date.now()}-${++seq}`;
+  // Frames each run their own copy of this script; include a per-frame token so
+  // request ids stay unique across the page and all of its iframes.
+  const frameToken = Math.random().toString(36).slice(2, 10);
+  const nextId = () => `sse-${Date.now()}-${frameToken}-${++seq}`;
 
   const post = (msg: PageToExtensionMessage): void => {
     window.postMessage(msg, "*");
